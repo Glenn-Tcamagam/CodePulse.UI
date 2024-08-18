@@ -14,7 +14,7 @@
             <th>Title</th>
             <th>Short Description</th>
             <th>Is Visible?</th>
-            <!-- <th>Categories</th> -->
+            <th>Categories</th>
             <!-- <th> </th> -->
           </tr>
         </thead>
@@ -24,11 +24,11 @@
             <td>{{blogPost.title}}</td>
             <td>{{blogPost.shortDescription}}</td>
             <td>{{blogPost.isVisible}}</td>
-            <!-- <td>
+            <td>
               <span *ngFor="let category of blogPost.categories">
-                <span class="badge bg-secondary me-2">{{category.name}}</span>
+                <span class="badge bg-success me-2">{{category.name}}</span>
               </span>
-            </td> -->
+            </td>
             <td>
               <a class="btn btn-warning" [routerLink]="['/admin/blogposts', blogPost.id]">Edit</a>
             </td>
