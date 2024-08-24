@@ -6,6 +6,7 @@ import { BlogPost } from '../models/blog-post.model';
 import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
 import { UpdateBlogPost } from '../models/update-blogpost.model';
+import { ImageService } from 'src/app/shared/components/image-selector/image.service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -21,11 +22,12 @@ routeSubscription?: Subscription;
 updateBlogPostSubscription?:Subscription;
 getBlogPostSubscription?:Subscription;
 deleteBlogPostSubscription?:Subscription;
+imageSelectSubscription?:Subscription;
 
 isImageSelectorVisible : boolean = false;
 
   constructor(private route: ActivatedRoute, private blogPostService: BlogPostService, 
-    private categoryService: CategoryService, private router: Router){}
+    private categoryService: CategoryService, private router: Router, private imageService: ImageService){}
  
  
  
@@ -50,6 +52,17 @@ this.categories$ = this.categoryService.getAllCategories();
           });
           ;
         }
+
+        this.imageSelectSubscription = this.imageService.onSelectImage()
+        .subscribe({
+          next: (response) => {
+            if (this.model) {
+              this.model.featuredImageUrl = response.url;
+              this.isImageSelectorVisible = false;
+            }
+          }
+        })
+
       }
     })
   }
@@ -105,6 +118,7 @@ ngOnDestroy(): void {
   this.routeSubscription?.unsubscribe();
     this.updateBlogPostSubscription?.unsubscribe();
     this.getBlogPostSubscription?.unsubscribe();
+    this.imageSelectSubscription?.unsubscribe();
 }
 
 
