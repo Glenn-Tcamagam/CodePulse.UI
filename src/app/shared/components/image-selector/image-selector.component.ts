@@ -18,7 +18,7 @@ images$?: Observable<BlogImage[]>;
 
 constructor(private imageService: ImageService) {}
   ngOnInit(): void {
-    this.getImages;
+    this.getImages();
   }
 
 
